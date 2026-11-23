@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check-rust:
+    name: Rust (fmt, clippy, test, bindings)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check Rust formatting
+        run: cargo fmt --all -- --check
+
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: Test (export_bindings)
+        run: cargo test -p p7m-core export_bindings
+
+      - name: Test (all workspace tests)
+        run: cargo test --workspace
+
+      - name: Verify bindings drift
+        run: CHECK_BINDINGS_DRIFT=1 cargo test -p p7m-core export_bindings
+
+  check-frontend:
+    name: Frontend (typecheck)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: TypeScript typecheck (shared-types)
+        run: pnpm --filter @zerop7m/shared-types typecheck
+
+      - name: TypeScript typecheck (web)
+        run: pnpm --filter web typecheck
+
+      - name: Frontend unit & security tests
+        run: pnpm --filter web test
+
+      - name: Build WebApp & PWA bundle
+        run: pnpm --filter web build
+
+  check-fixtures:
+    name: Fixtures (reproducibility)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate fixtures
+        run: python fixtures/generate_fixtures.py
+
+      - name: Verify fixture generation output
+        run: ls -la fixtures/generated/

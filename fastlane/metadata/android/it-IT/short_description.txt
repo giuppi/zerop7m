@@ -1,0 +1,1 @@
+ZeroP7M: Lettore .p7m 100% locale, offline, gratuito e open source basato su OpenCAdES.

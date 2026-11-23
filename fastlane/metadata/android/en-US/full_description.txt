@@ -1,0 +1,9 @@
+ZeroP7M is a free, open-source (MIT / Apache-2.0) digital signature reader (.p7m / CAdES-BES / CAdES-T) powered by the OpenCAdES engine and designed with absolute privacy in mind.
+
+KEY FEATURES:
+• 100% Local & Offline: Files are never uploaded to any server or cloud. All cryptographic unpacking and rendering happens entirely on-device in memory via OpenCAdES.
+• Zero Cost, Zero Ads, Zero Telemetry: No accounts, no subscriptions, no tracking, strict Content-Security-Policy (connect-src 'none').
+• Built-In Multi-Page PDF Viewer: Smooth rendering, fit-to-page, and navigation for PDF files inside .p7m envelopes.
+• FatturaPA XML Viewer: Formatted invoice display using official Italian stylesheets (AssoSoftware & Agenzia delle Entrate) with instant toggle to raw XML.
+• Digital Signature Inspection: View signers, Italian Fiscal Code (Codice Fiscale), Certificate Authorities, validity periods, and RFC 3161 timestamps.
+• Fast Extraction: One-click extraction of the underlying original file.

@@ -1,0 +1,13 @@
+ZeroP7M è un lettore di file con firma digitale .p7m (CAdES-BES / CAdES-T) completamente gratuito, open source (MIT / Apache-2.0) e progettato per la massima privacy, basato sul motore crittografico OpenCAdES.
+
+CARATTERISTICHE PRINCIPALI:
+• 100% Locale e Offline: Nessun file viene mai caricato su server esterni o cloud. Tutta l'elaborazione crittografica e la visualizzazione avvengono esclusivamente sulla memoria del tuo dispositivo tramite il motore OpenCAdES.
+• Zero Costi, Zero Pubblicità, Zero Tracciamento: Nessuna registrazione, nessun account richiesto, nessun cookie o analisi dei dati.
+• Visualizzatore PDF Integrato: Apertura immediata di PDF multipagina protetti da busta .p7m con supporto a zoom e navigazione pagine.
+• Visualizzatore FatturaPA: Riconoscimento automatico delle fatture elettroniche (.xml.p7m) con resa grafica leggibile tramite fogli di stile ufficiali AssoSoftware e Agenzia delle Entrate, alternabile con la vista XML originale.
+• Dettagli Firme e Marche Temporali: Ispezione approfondita dei firmatari (Nome, Cognome, Codice Fiscale normalizzato, Ente Certificatore, date di validità, marcatura temporale RFC 3161) e verifica matematica dell'integrità del documento.
+• Integrazione con Android: Si integra con Gmail, WhatsApp, app PEC e Gestore File tramite associazione diretta del tipo MIME application/pkcs7-mime ("Apri con ZeroP7M").
+• Estrazione Rapida: Salva ed esporta una copia decifrata del documento originale con un solo tocco.
+
+AVVERTENZA LEGALE:
+L'integrità del documento è verificata localmente tramite calcolo degli hash crittografici. La verifica dello stato di revoca del certificato e della qualifica eIDAS richiede controlli telematici online non previsti in modalità offline. Conserva sempre il file .p7m originale per il pieno valore probatorio legale.

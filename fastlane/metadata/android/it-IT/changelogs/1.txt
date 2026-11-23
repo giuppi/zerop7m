@@ -1,0 +1,5 @@
+Rilascio iniziale v1.0.0 di ZeroP7M:
+- Apertura e lettura offline di file .p7m (PDF, FatturaPA XML, immagini, testo)
+- Motore crittografico Rust ad alte prestazioni
+- Ispezione firme, Codice Fiscale e marche temporali
+- Zero connessioni di rete (connect-src 'none')
