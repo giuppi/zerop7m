@@ -1,0 +1,17 @@
+{
+  "name": "zerop7m",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ZeroP7M — Open-Source, Zero-Cost, 100% Client-Side/Offline .p7m Reader powered by OpenCAdES",
+  "scripts": {
+    "typecheck": "pnpm --filter @zerop7m/shared-types typecheck",
+    "benchmark": "python scripts/benchmark_50mb.py",
+    "audit:verify": "python scripts/verify_audit.py",
+    "audit:secrets": "python scripts/scan_secrets_pii.py",
+    "check:ci": "pnpm --filter web typecheck && pnpm --filter web test && cargo test --workspace && cargo check -p zerop7m-tauri --target aarch64-linux-android && python scripts/verify_audit.py",
+    "tauri": "pnpm --filter @zerop7m/tauri exec tauri"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

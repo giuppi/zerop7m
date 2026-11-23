@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: p7m:; connect-src 'none'; object-src 'none'; frame-src 'self' blob:;" />
+    
+    <!-- PWA & Mobile Meta Tags -->
+    <meta name="theme-color" content="#1E40AF" />
+    <meta name="description" content="ZeroP7M — Lettore di file .p7m 100% locale, offline e gratuito basato su OpenCAdES" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="ZeroP7M" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>ZeroP7M — OpenCAdES Offline Reader (.p7m)</title>
+  </head>
+  <body class="bg-[#F4F5F7] dark:bg-[#0F1115] text-[#111827] dark:text-[#F3F4F6] min-h-screen antialiased selection:bg-[#1E40AF]/15">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
