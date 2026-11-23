@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.github.giuppi.zerop7m">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:label="ZeroP7M"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Tauri">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:launchMode="singleTask">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Intent Filter 1: Official and common PKCS#7 / CAdES MIME types -->
+            <intent-filter android:label="Apri con ZeroP7M">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:mimeType="application/pkcs7-mime" />
+                <data android:mimeType="application/x-pkcs7-mime" />
+                <data android:mimeType="application/pkcs7-signature" />
+                <data android:mimeType="application/x-pkcs7-signature" />
+            </intent-filter>
+
+            <!-- Intent Filter 2: Generic / octet-stream files with .p7m / .P7M extension -->
+            <intent-filter android:label="Apri con ZeroP7M">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.p7m" />
+                <data android:pathPattern=".*\\..*\\.p7m" />
+                <data android:pathPattern=".*\\..*\\..*\\.p7m" />
+                <data android:pathPattern=".*\\.P7M" />
+                <data android:pathPattern=".*\\..*\\.P7M" />
+                <data android:pathPattern=".*\\..*\\..*\\.P7M" />
+                <data android:pathSuffix=".p7m" />
+                <data android:pathSuffix=".P7M" />
+            </intent-filter>
+
+            <!-- Intent Filter 3: URI schemes without MIME type from system file managers -->
+            <intent-filter android:label="Apri con ZeroP7M">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:pathPattern=".*\\.p7m" />
+                <data android:pathPattern=".*\\..*\\.p7m" />
+                <data android:pathPattern=".*\\..*\\..*\\.p7m" />
+                <data android:pathPattern=".*\\.P7M" />
+                <data android:pathPattern=".*\\..*\\.P7M" />
+                <data android:pathPattern=".*\\..*\\..*\\.P7M" />
+                <data android:pathSuffix=".p7m" />
+                <data android:pathSuffix=".P7M" />
+            </intent-filter>
+
+            <!-- Intent Filter 4: ACTION_SEND & ACTION_SEND_MULTIPLE for sharing from WhatsApp/Telegram/Gmail -->
+            <intent-filter android:label="Apri con ZeroP7M">
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/pkcs7-mime" />
+                <data android:mimeType="application/x-pkcs7-mime" />
+                <data android:mimeType="application/pkcs7-signature" />
+                <data android:mimeType="application/x-pkcs7-signature" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+        </activity>
+    </application>
+</manifest>

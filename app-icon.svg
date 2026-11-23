@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Squircle Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="50%" stop-color="#1E40AF" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <!-- Document Shadow -->
+    <filter id="docShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+
+    <!-- Seal Shadow -->
+    <filter id="sealShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+
+    <!-- Document Corner Fold Gradient -->
+    <linearGradient id="foldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2E8F0" />
+      <stop offset="100%" stop-color="#94A3B8" />
+    </linearGradient>
+
+    <!-- Emerald Seal Gradient -->
+    <linearGradient id="sealGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="50%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <!-- Gold Accent for Seal Ring -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+  </defs>
+
+  <!-- App Tile Base (Rounded Squircle) -->
+  <rect x="32" y="32" width="448" height="448" rx="104" ry="104" fill="url(#bgGrad)" />
+  <!-- Inner Highlight Border -->
+  <rect x="34" y="34" width="444" height="444" rx="102" ry="102" fill="none" stroke="#60A5FA" stroke-width="3" stroke-opacity="0.4" />
+
+  <!-- Document Sheet -->
+  <g filter="url(#docShadow)">
+    <!-- Document Body: width=228, height=300, x=142, y=96 with top-right cut at x=310, y=156 -->
+    <path d="M 152 96
+             L 300 96
+             L 370 166
+             L 370 380
+             A 16 16 0 0 1 354 396
+             L 158 396
+             A 16 16 0 0 1 142 380
+             L 142 112
+             A 16 16 0 0 1 152 96 Z"
+          fill="#FFFFFF" />
+
+    <!-- Corner Fold Flap -->
+    <path d="M 300 96
+             L 300 156
+             A 10 10 0 0 0 310 166
+             L 370 166 Z"
+          fill="url(#foldGrad)" />
+
+    <!-- Subtle Document Text Skeleton Lines -->
+    <rect x="180" y="150" width="90" height="12" rx="6" fill="#CBD5E1" />
+    <rect x="180" y="180" width="150" height="10" rx="5" fill="#E2E8F0" />
+    <rect x="180" y="206" width="150" height="10" rx="5" fill="#E2E8F0" />
+    <rect x="180" y="232" width="120" height="10" rx="5" fill="#E2E8F0" />
+  </g>
+
+  <!-- Cryptographic Integrity Seal (Emerald + Padlock) -->
+  <g filter="url(#sealShadow)">
+    <!-- Outer Gold Ring -->
+    <circle cx="256" cy="326" r="62" fill="url(#goldGrad)" />
+    <!-- Inner Emerald Seal -->
+    <circle cx="256" cy="326" r="56" fill="url(#sealGrad)" />
+    <circle cx="256" cy="326" r="54" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.6" stroke-dasharray="4 3" />
+
+    <!-- Padlock Icon inside Seal -->
+    <!-- Shackle -->
+    <path d="M 240 312
+             L 240 298
+             A 16 16 0 0 1 272 298
+             L 272 312"
+          fill="none"
+          stroke="#FFFFFF"
+          stroke-width="7"
+          stroke-linecap="round" />
+
+    <!-- Lock Body -->
+    <rect x="232" y="310" width="48" height="38" rx="8" ry="8" fill="#FFFFFF" />
+
+    <!-- Keyhole -->
+    <circle cx="256" cy="325" r="4.5" fill="#047857" />
+    <path d="M 254 327 L 258 327 L 259 337 L 253 337 Z" fill="#047857" />
+  </g>
+</svg>
