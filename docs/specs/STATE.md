@@ -65,9 +65,9 @@
 ## Final Audit Verdict
 * **VERDICT:** APPROVED FOR v1.0.0 PRODUCTION RELEASE
 * **SECURITY POSTURE:** 100% Client-Side / Offline (`connect-src 'none'`), Safe Rust `#![forbid(unsafe_code)]`, Hardened PDF.js & XSLT Sandbox.
-* **NEXT:** Tag v1.0.0 updated and pushed to trigger refreshed release build on GitHub Actions.
+* **NEXT:** Push CI fixes (Linux GTK dependencies), Pages relative base path (`./`), and automated `deploy-pages.yml` workflow.
 
 ## Session Close Handoff
-- Completed: Deep rebranding (@zerop7m, zerop7m-tauri, io.github.giuppi.zerop7m, zerop7m://, keystore alias), restructured git into 6 pristine linear conventional commits, force-pushed clean main and v1.0.0 tag to giuppi/zerop7m, purged legacy workflow runs.
-- Verified: `pnpm check:ci` (tsc + 16 Vitest tests + 20 cargo tests + android aarch64 + verify_audit.py: PASS), `cargo fmt --check` (PASS), `cargo clippy -- -D warnings` (PASS), `scan_secrets_pii.py` (0 findings).
-- Next: Monitor GitHub Actions run 45171331569 and verify release assets on GitHub Releases.
+- Completed: Fixed Vite base path to `./` for GitHub Pages subpath deployment, updated pdf-config to dynamic baseUrl, installed Linux GTK/WebKit system dependencies in ci.yml to resolve gobject-sys/gio-sys build errors, created deploy-pages.yml for auto-deployment on push to main, added tag_name fallback in release.yml.
+- Verified: `pnpm --filter web build` (PASS, assets using relative `./assets/`), `python scripts/verify_audit.py` (PASS, 0 leaks, all invariants clean), `pnpm --filter web test` (16 passed).
+- Next: Commit and push fixes to main; trigger CI and verify GitHub Pages and Release pipeline.

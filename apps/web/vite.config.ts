@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  base: "./",
   resolve: {
     alias: {
       "p7m-wasm": path.resolve(__dirname, "../../crates/p7m-wasm/pkg"),
