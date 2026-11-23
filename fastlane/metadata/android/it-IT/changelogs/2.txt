@@ -1,0 +1,6 @@
+Versione 1.0.1:
+- Ottimizzazione usabilità interfaccia su dispositivi mobili e touchscreen
+- Pulsanti della toolbar ingranditi con aree di tocco conformi (min 40-44px)
+- Badge di verifica firma digitale ben visibile e colorato su schermi mobile
+- Navigazione PDF e controlli zoom ottimizzati per l'uso con una sola mano
+- Miglioramenti estetici e gestione compatta dello spazio su smartphone

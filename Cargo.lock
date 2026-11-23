@@ -2552,7 +2552,7 @@ dependencies = [
 
 [[package]]
 name = "p7m-core"
-version = "0.1.0"
+version = "1.0.1"
 dependencies = [
  "base64 0.22.1",
  "infer",
@@ -2572,7 +2572,7 @@ dependencies = [
 
 [[package]]
 name = "p7m-wasm"
-version = "0.1.0"
+version = "1.0.1"
 dependencies = [
  "js-sys",
  "p7m-core",

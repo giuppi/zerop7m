@@ -87,7 +87,7 @@ export const EmptyDropZone: React.FC<EmptyDropZoneProps> = ({
 
           <button
             type="button"
-            className="inline-flex items-center px-5 py-2.5 bg-[#1E40AF] hover:bg-[#1D4ED8] text-white text-sm font-medium rounded-lg shadow-xs transition-colors"
+            className="min-h-[44px] px-6 py-2.5 bg-[#1E40AF] hover:bg-[#1D4ED8] active:bg-[#1e3a8a] text-white text-sm font-medium rounded-lg shadow-xs transition-colors flex items-center justify-center cursor-pointer"
           >
             Scegli dal dispositivo
           </button>

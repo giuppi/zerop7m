@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "ZeroP7M",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "identifier": "io.github.giuppi.zerop7m",
   "build": {
     "beforeDevCommand": "pnpm --filter web dev",

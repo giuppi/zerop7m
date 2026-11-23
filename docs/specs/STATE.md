@@ -1,9 +1,9 @@
 # STATE — ZeroP7M / OpenCAdES Session Continuity Log
 
 ## Current Status
-* **Phase:** Milestone 5 Complete -> **v1.0.0 Production Release Published (Rebranded to ZeroP7M)**
-* **Active Milestone:** Milestone 5 — Final Security Hardening, Audit & Zero-Cost Release Pipeline (COMPLETED)
-* **Active Task:** Rebranded from ApriP7M to **ZeroP7M** (powered by **OpenCAdES** engine). Repository restructured into a clean 6-commit linear history, release tag `v1.0.0` published.
+* **Phase:** Production Release Maintenance -> **v1.0.1 Mobile Usability Release**
+* **Active Milestone:** Post-v1.0.0 Mobile & Ergonomics Hardening (COMPLETED)
+* **Active Task:** Touch-friendly toolbar & drawer controls (min 40-44px tap targets), responsive mobile signature status button, and version bump to `1.0.1` (versionCode 2).
 * **Blockers:** None.
 
 ## Rebranding Execution (ZeroP7M & OpenCAdES)
@@ -63,11 +63,11 @@
 * **Android In-Memory PDF Loading:** Native IPC command `get_session_bytes` eliminating `fetch()` failures under `connect-src 'none'`.
 
 ## Final Audit Verdict
-* **VERDICT:** APPROVED FOR v1.0.0 PRODUCTION RELEASE
+* **VERDICT:** APPROVED FOR v1.0.1 PRODUCTION RELEASE
 * **SECURITY POSTURE:** 100% Client-Side / Offline (`connect-src 'none'`), Safe Rust `#![forbid(unsafe_code)]`, Hardened PDF.js & XSLT Sandbox.
-* **NEXT:** All CI, Release, and GitHub Pages pipelines fully verified and green.
+* **NEXT:** Push commit and release tag `v1.0.1` to GitHub to trigger automated release build.
 
 ## Session Close Handoff
-- Completed: Fixed Vite base path to `./` for GitHub Pages subpath deployment, updated pdf-config to dynamic baseUrl, installed Linux GTK/WebKit system dependencies in ci.yml to resolve gobject-sys/gio-sys build errors, created deploy-pages.yml with separate build and deploy jobs, tracked fixtures/generated/ test corpus, synchronized .gitignore, and confirmed green CI and Pages deployments.
-- Verified: `gh run list` (CI run 45204941821: PASS, Pages run 45204941829: PASS, Release run 45203296115: PASS), `pnpm --filter web build` (PASS), `python scripts/verify_audit.py` (PASS), `pnpm --filter web test` (16 passed).
-- Next: Maintain zero-egress offline invariants in all future patches.
+- Completed: Mobile touch ergonomics across HeaderBar, PdfViewer, FatturaPaViewer, ImageViewer, and SignatureDrawer (min 40-44px tap targets, active touch feedback, high-contrast mobile signature status button), version bumped to 1.0.1 across Cargo.toml, tauri.conf.json, and package.json files, added fastlane changelogs for build 2 in it-IT and en-US.
+- Verified: `cargo test --workspace` (20 passed), `cargo fmt --all -- --check` (PASS), `cargo clippy --workspace --all-targets -- -D warnings` (PASS 0 warnings), `pnpm --filter web typecheck` (0 errors), `pnpm --filter web test` (16 passed), `pnpm --filter web build` (PASS), `python scripts/verify_audit.py` (ALL SECURITY INVARIANTS CLEAN).
+- Next: Commit and push tag `v1.0.1` and `main` branch to trigger GitHub Actions Release Pipeline.

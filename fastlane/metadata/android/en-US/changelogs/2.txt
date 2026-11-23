@@ -1,0 +1,6 @@
+Version 1.0.1:
+- Mobile UI and touchscreen usability enhancements
+- Enlarged toolbar buttons and touch targets meeting 40-44px guidelines
+- Prominent signature verification status badge with color feedback on mobile screens
+- Single-hand optimized PDF page navigation and zoom controls
+- Refined layout and compact spacing on smaller smartphone viewports

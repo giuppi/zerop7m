@@ -111,7 +111,7 @@ export const SignatureDrawer: React.FC<SignatureDrawerProps> = ({
         className="fixed right-0 top-0 bottom-0 w-full sm:w-[400px] lg:w-[360px] bg-white dark:bg-[#171A21] border-l border-[#E2E5EB] dark:border-[#262B36] z-50 flex flex-col shadow-xl select-none pb-[env(safe-area-inset-bottom,0px)]"
       >
         {/* Header */}
-        <div className="min-h-[52px] pt-[env(safe-area-inset-top,0px)] border-b border-[#E2E5EB] dark:border-[#262B36] px-4 flex items-center justify-between">
+        <div className="min-h-[56px] sm:min-h-[52px] pt-[env(safe-area-inset-top,0px)] border-b border-[#E2E5EB] dark:border-[#262B36] px-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Shield className="w-5 h-5 text-[#1E40AF]" />
             <h2 className="text-sm font-semibold text-[#111827] dark:text-[#F3F4F6]">
@@ -120,8 +120,9 @@ export const SignatureDrawer: React.FC<SignatureDrawerProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded text-[#525C6E] hover:text-[#111827] dark:text-[#9CA3AF] dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="h-10 w-10 sm:h-8 sm:w-8 flex items-center justify-center rounded-lg text-[#525C6E] hover:text-[#111827] dark:text-[#9CA3AF] dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 transition-colors"
             title="Chiudi pannello (Esc)"
+            aria-label="Chiudi pannello"
           >
             <X className="w-5 h-5" />
           </button>
@@ -185,13 +186,14 @@ export const SignatureDrawer: React.FC<SignatureDrawerProps> = ({
                       </span>
                       <button
                         onClick={() => handleCopy(signer.fiscalCode!)}
-                        className="text-[#525C6E] hover:text-[#1E40AF] dark:text-[#9CA3AF] dark:hover:text-blue-400 p-0.5"
+                        className="h-8 w-8 flex items-center justify-center rounded-md text-[#525C6E] hover:text-[#1E40AF] dark:text-[#9CA3AF] dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 transition-colors"
                         title="Copia Codice Fiscale"
+                        aria-label="Copia Codice Fiscale"
                       >
                         {copiedCf === signer.fiscalCode ? (
-                          <Check className="w-3.5 h-3.5 text-green-600" />
+                          <Check className="w-4 h-4 text-green-600" />
                         ) : (
-                          <Copy className="w-3.5 h-3.5" />
+                          <Copy className="w-4 h-4" />
                         )}
                       </button>
                     </div>

@@ -171,76 +171,77 @@ export const FatturaPaViewer: React.FC<FatturaPaViewerProps> = ({ readBytes }) =
   return (
     <div className="flex-1 flex flex-col h-full bg-[#F4F5F7] dark:bg-[#0F1115] overflow-hidden">
       {/* Sub-toolbar */}
-      <div className="h-10 bg-white dark:bg-[#171A21] border-b border-[#E2E5EB] dark:border-[#262B36] px-4 flex items-center justify-between text-xs text-[#525C6E] dark:text-[#9CA3AF] z-10 select-none">
+      <div className="min-h-[46px] sm:h-10 bg-white dark:bg-[#171A21] border-b border-[#E2E5EB] dark:border-[#262B36] px-2 sm:px-4 py-1 sm:py-0 flex items-center justify-between gap-1 overflow-x-auto scrollbar-none text-xs text-[#525C6E] dark:text-[#9CA3AF] z-10 select-none shadow-xs">
         {/* Style Selector */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1 sm:space-x-2 shrink-0">
           {viewMode === "visual" && (
             <div className="flex items-center space-x-1">
-              <span className="hidden sm:inline">Stile:</span>
+              <span className="hidden md:inline font-medium text-gray-500">Stile:</span>
               <button
                 onClick={() => setStyle("assosoftware")}
-                className={`px-2 py-1 rounded transition-colors ${
+                className={`h-8 sm:h-7 px-2.5 sm:px-2 rounded-lg text-xs font-medium flex items-center transition-colors ${
                   style === "assosoftware"
-                    ? "bg-blue-50 dark:bg-blue-900/40 text-[#1E40AF] dark:text-blue-300 font-medium"
-                    : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                    ? "bg-blue-50 dark:bg-blue-900/40 text-[#1E40AF] dark:text-blue-300 font-semibold"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200"
                 }`}
               >
                 AssoSoftware
               </button>
               <button
                 onClick={() => setStyle("ade")}
-                className={`px-2 py-1 rounded transition-colors ${
+                className={`h-8 sm:h-7 px-2.5 sm:px-2 rounded-lg text-xs font-medium flex items-center transition-colors ${
                   style === "ade"
-                    ? "bg-blue-50 dark:bg-blue-900/40 text-[#1E40AF] dark:text-blue-300 font-medium"
-                    : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                    ? "bg-blue-50 dark:bg-blue-900/40 text-[#1E40AF] dark:text-blue-300 font-semibold"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200"
                 }`}
               >
-                AdE (v1.2.2)
+                AdE
               </button>
             </div>
           )}
         </div>
 
         {/* View mode toggle, Attachments & Print */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1 sm:space-x-2 shrink-0">
           {attachments.length > 0 && (
             <button
               onClick={() => setIsAttachmentsDrawerOpen((prev) => !prev)}
-              className={`inline-flex items-center px-2 py-1 rounded transition-colors text-xs font-medium border ${
+              className={`h-8 sm:h-7 inline-flex items-center px-2.5 sm:px-2 rounded-lg transition-colors text-xs font-medium border ${
                 isAttachmentsDrawerOpen
                   ? "bg-blue-100 dark:bg-blue-900/60 text-[#1E40AF] dark:text-blue-200 border-blue-300 dark:border-blue-700"
-                  : "bg-blue-50 dark:bg-blue-950/60 text-[#1E40AF] dark:text-blue-300 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/40"
+                  : "bg-blue-50 dark:bg-blue-950/60 text-[#1E40AF] dark:text-blue-300 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/40 active:bg-blue-200"
               }`}
               title="Visualizza allegati incorporati nella fattura"
             >
-              <Paperclip className="w-3.5 h-3.5 mr-1 text-[#1E40AF] dark:text-blue-400" />
+              <Paperclip className="w-4 h-4 sm:w-3.5 sm:h-3.5 mr-1 text-[#1E40AF] dark:text-blue-400 shrink-0" />
               <span>Allegati ({attachments.length})</span>
             </button>
           )}
 
           <button
             onClick={() => setViewMode(viewMode === "visual" ? "xml" : "visual")}
-            className="inline-flex items-center px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="h-8 sm:h-7 inline-flex items-center px-2.5 sm:px-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 transition-colors"
             title={viewMode === "visual" ? "Mostra XML originale" : "Mostra Vista Grafica"}
           >
             {viewMode === "visual" ? (
               <>
-                <Code className="w-3.5 h-3.5 mr-1" />
-                <span>XML Sorgente</span>
+                <Code className="w-4 h-4 sm:w-3.5 sm:h-3.5 mr-1 shrink-0" />
+                <span className="hidden sm:inline">XML Sorgente</span>
+                <span className="inline sm:hidden">XML</span>
               </>
             ) : (
               <>
-                <Eye className="w-3.5 h-3.5 mr-1" />
-                <span>Vista Grafica</span>
+                <Eye className="w-4 h-4 sm:w-3.5 sm:h-3.5 mr-1 shrink-0" />
+                <span>Grafica</span>
               </>
             )}
           </button>
 
-          <div className="h-4 w-px bg-gray-200 dark:bg-gray-700 mx-1" />
+          <div className="h-4 w-px bg-gray-200 dark:bg-gray-700 mx-0.5" />
 
           <button
             onClick={handlePrint}
-            className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="h-9 w-9 sm:h-7 sm:w-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200"
             title="Stampa fattura"
           >
             <Printer className="w-4 h-4" />
@@ -271,33 +272,34 @@ export const FatturaPaViewer: React.FC<FatturaPaViewerProps> = ({ readBytes }) =
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 shrink-0 ml-3">
+          <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0 ml-2">
             <button
               onClick={() => handleDownloadAttachment(attachments[0])}
-              className="inline-flex items-center px-2.5 py-1 bg-[#1E40AF] hover:bg-[#1D4ED8] text-white rounded text-xs font-medium shadow-xs transition-colors"
+              className="h-8 sm:h-7 inline-flex items-center px-3 sm:px-2.5 bg-[#1E40AF] hover:bg-[#1D4ED8] active:bg-[#1e3a8a] text-white rounded-lg text-xs font-medium shadow-xs transition-colors"
               title={`Salva ${attachments[0].name}`}
             >
-              <Download className="w-3.5 h-3.5 mr-1" />
-              <span>
+              <Download className="w-3.5 h-3.5 mr-1 shrink-0" />
+              <span className="hidden xs:inline">
                 {attachments.length === 1 ? "Salva Allegato" : "Salva Primo"}
               </span>
+              <span className="inline xs:hidden">Salva</span>
             </button>
 
             {attachments.length > 1 && (
               <button
                 onClick={() => setIsAttachmentsDrawerOpen(true)}
-                className="px-2 py-1 bg-white dark:bg-gray-800 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-gray-700 rounded text-xs font-medium transition-colors"
+                className="h-8 sm:h-7 px-2.5 sm:px-2 bg-white dark:bg-gray-800 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-gray-700 active:bg-blue-100 rounded-lg text-xs font-medium transition-colors"
               >
-                Vedi tutti ({attachments.length})
+                Tutti ({attachments.length})
               </button>
             )}
 
             <button
               onClick={() => setShowAttachmentsBanner(false)}
-              className="p-1 text-blue-500 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 rounded"
+              className="h-8 w-8 sm:h-7 sm:w-7 flex items-center justify-center text-blue-500 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 rounded-lg"
               title="Chiudi notifica"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
             </button>
           </div>
         </div>
@@ -340,10 +342,10 @@ export const FatturaPaViewer: React.FC<FatturaPaViewerProps> = ({ readBytes }) =
                 </div>
                 <button
                   onClick={() => setIsAttachmentsDrawerOpen(false)}
-                  className="p-1 rounded text-[#525C6E] hover:text-[#111827] dark:text-[#9CA3AF] dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="h-9 w-9 flex items-center justify-center rounded-lg text-[#525C6E] hover:text-[#111827] dark:text-[#9CA3AF] dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200"
                   title="Chiudi pannello"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
@@ -386,10 +388,10 @@ export const FatturaPaViewer: React.FC<FatturaPaViewerProps> = ({ readBytes }) =
 
                       <button
                         onClick={() => handleDownloadAttachment(attachment)}
-                        className={`w-full inline-flex items-center justify-center px-3 py-1.5 text-xs font-medium rounded transition-colors shadow-xs ${
+                        className={`w-full min-h-[40px] px-3 py-2 text-xs font-medium rounded-lg inline-flex items-center justify-center transition-colors shadow-xs ${
                           isDownloaded
-                            ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-                            : "bg-[#1E40AF] hover:bg-[#1D4ED8] text-white"
+                            ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 active:bg-emerald-100"
+                            : "bg-[#1E40AF] hover:bg-[#1D4ED8] active:bg-[#1e3a8a] text-white"
                         }`}
                       >
                         {isDownloaded ? (

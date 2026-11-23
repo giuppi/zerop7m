@@ -341,19 +341,19 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ url, readBytes }) => {
   return (
     <div className="flex-1 flex flex-col h-full bg-[#E5E7EB] dark:bg-[#0B0C0E] overflow-hidden select-none">
       {/* Viewer Floating/Sub-toolbar */}
-      <div className="h-10 bg-white dark:bg-[#171A21] border-b border-[#E2E5EB] dark:border-[#262B36] px-3 sm:px-4 flex items-center justify-between text-xs text-[#525C6E] dark:text-[#9CA3AF] z-10 shadow-xs">
+      <div className="min-h-[46px] sm:h-10 bg-white dark:bg-[#171A21] border-b border-[#E2E5EB] dark:border-[#262B36] px-2 sm:px-4 py-1 sm:py-0 flex items-center justify-between gap-1 overflow-x-auto scrollbar-none text-xs text-[#525C6E] dark:text-[#9CA3AF] z-10 shadow-xs select-none">
         {/* Left Section: Mode Switch & Page Navigation (hidden if only 1 page) */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1 sm:space-x-2 shrink-0">
           {numPages > 1 && (
             <>
               {/* Single / Continuous View Mode Switch */}
-              <div className="flex items-center bg-gray-100 dark:bg-gray-800 p-0.5 rounded border border-[#E2E5EB] dark:border-[#262B36] mr-1">
+              <div className="flex items-center bg-gray-100 dark:bg-gray-800 p-0.5 rounded-lg border border-[#E2E5EB] dark:border-[#262B36] mr-1 shrink-0">
                 <button
                   onClick={() => handleViewModeChange("single")}
-                  className={`px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${
+                  className={`h-8 sm:h-7 px-2.5 sm:px-2 rounded-md text-xs sm:text-[11px] font-medium flex items-center justify-center transition-colors ${
                     viewMode === "single"
                       ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-xs"
-                      : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                      : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white active:bg-gray-200 dark:active:bg-gray-600"
                   }`}
                   title="Visualizza una pagina per videata"
                   aria-label="Modalità pagina singola"
@@ -362,10 +362,10 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ url, readBytes }) => {
                 </button>
                 <button
                   onClick={() => handleViewModeChange("continuous")}
-                  className={`px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${
+                  className={`h-8 sm:h-7 px-2.5 sm:px-2 rounded-md text-xs sm:text-[11px] font-medium flex items-center justify-center transition-colors ${
                     viewMode === "continuous"
                       ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-xs"
-                      : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                      : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white active:bg-gray-200 dark:active:bg-gray-600"
                   }`}
                   title="Visualizza tutte le pagine accodate"
                   aria-label="Modalità pagine accodate"
@@ -378,57 +378,58 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ url, readBytes }) => {
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage <= 1}
-                className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 disabled:pointer-events-none"
+                className="h-9 w-9 sm:h-7 sm:w-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 disabled:opacity-30 disabled:pointer-events-none transition-colors"
                 title="Pagina precedente (Freccia Sinistra)"
                 aria-label="Pagina precedente"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-5 h-5 sm:w-4 sm:h-4" />
               </button>
-              <span>
-                Pagina <span className="font-semibold text-gray-900 dark:text-gray-100">{currentPage}</span> di{" "}
+              <span className="px-1 text-xs sm:text-xs whitespace-nowrap">
+                <span className="hidden xs:inline">Pagina </span>
+                <span className="font-semibold text-gray-900 dark:text-gray-100">{currentPage}</span> /{" "}
                 <span className="font-semibold text-gray-900 dark:text-gray-100">{numPages}</span>
               </span>
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage >= numPages}
-                className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 disabled:pointer-events-none"
+                className="h-9 w-9 sm:h-7 sm:w-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 disabled:opacity-30 disabled:pointer-events-none transition-colors"
                 title="Pagina successiva (Freccia Destra)"
                 aria-label="Pagina successiva"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-5 h-5 sm:w-4 sm:h-4" />
               </button>
             </>
           )}
         </div>
 
         {/* Right Section: Zoom Controls & Fit to Page */}
-        <div className="flex items-center space-x-1 sm:space-x-2">
+        <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0">
           <button
             onClick={handleZoomOut}
-            className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="h-9 w-9 sm:h-7 sm:w-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 transition-colors"
             title="Riduci zoom"
             aria-label="Riduci zoom"
           >
-            <ZoomOut className="w-4 h-4" />
+            <ZoomOut className="w-4.5 h-4.5 sm:w-4 sm:h-4" />
           </button>
-          <span className="w-12 text-center font-mono text-[11px]">
+          <span className="w-11 sm:w-12 text-center font-mono text-xs sm:text-[11px] font-medium">
             {Math.round(scale * 100)}%
           </span>
           <button
             onClick={handleZoomIn}
-            className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="h-9 w-9 sm:h-7 sm:w-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 transition-colors"
             title="Aumenta zoom"
             aria-label="Aumenta zoom"
           >
-            <ZoomIn className="w-4 h-4" />
+            <ZoomIn className="w-4.5 h-4.5 sm:w-4 sm:h-4" />
           </button>
           <button
             onClick={fitToPage}
-            className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-[#1E40AF] dark:text-blue-400"
+            className="h-9 w-9 sm:h-7 sm:w-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 text-[#1E40AF] dark:text-blue-400 transition-colors"
             title="Adatta alla pagina"
             aria-label="Adatta alla pagina"
           >
-            <Maximize2 className="w-3.5 h-3.5" />
+            <Maximize2 className="w-4.5 h-4.5 sm:w-3.5 sm:h-3.5" />
           </button>
         </div>
       </div>
