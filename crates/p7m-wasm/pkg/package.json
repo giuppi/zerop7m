@@ -1,0 +1,19 @@
+{
+  "name": "p7m-wasm",
+  "type": "module",
+  "collaborators": [
+    "ZeroP7M Contributors"
+  ],
+  "version": "0.1.0",
+  "license": "MIT OR Apache-2.0",
+  "files": [
+    "p7m_wasm_bg.wasm",
+    "p7m_wasm.js",
+    "p7m_wasm.d.ts"
+  ],
+  "main": "p7m_wasm.js",
+  "types": "p7m_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
