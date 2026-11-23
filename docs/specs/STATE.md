@@ -3,10 +3,12 @@
 ## Current Status
 * **Phase:** Milestone 5 Complete -> **v1.0.0 Production Release Published (Rebranded to ZeroP7M)**
 * **Active Milestone:** Milestone 5 — Final Security Hardening, Audit & Zero-Cost Release Pipeline (COMPLETED)
-* **Active Task:** Rebranded from ApriP7M to **ZeroP7M** (powered by **OpenCAdES** engine). Rebuilding & publishing release pipeline for tag `v1.0.0`.
+* **Active Task:** Rebranded from ApriP7M to **ZeroP7M** (powered by **OpenCAdES** engine). Repository restructured into a clean 6-commit linear history, release tag `v1.0.0` published.
 * **Blockers:** None.
 
 ## Rebranding Execution (ZeroP7M & OpenCAdES)
+* [x] **Deep Codebase Rebranding:** Renamed all packages (`@zerop7m/shared-types`, `@zerop7m/tauri`), crates (`zerop7m-tauri`), Android application ID (`io.github.giuppi.zerop7m`), protocol handler (`zerop7m://open-file`), release keystore alias (`zerop7m`), and specifications.
+* [x] **Pristine Linear Git History:** Restructured the entire repository into 6 clean, atomic, conventional commits. Completely eliminated all superfluous commits and historical references to the old placeholder name.
 * [x] **GitHub Repository:** Renamed remote repository from `giuppi/aprip7m` to `giuppi/zerop7m` via GitHub CLI; updated local remote origin to `https://github.com/giuppi/zerop7m.git` and adjusted documentation links and clones.
 * [x] **Branding & Windows Icon:** Redesigned official 512x512 vector icon (`app-icon.svg`), generated multi-resolution Windows `.ico` (16, 24, 32, 48, 64, 128, 256), macOS `.icns`, and Android/iOS/PWA mipmaps via `tauri icon`.
 * [x] **PDF Viewer Fixes:** Resolved continuous scroll page overlapping bug by adding `shrink-0`, `gap-6`, explicit container dimensions, and removing `transition-all`.
@@ -64,3 +66,8 @@
 * **VERDICT:** APPROVED FOR v1.0.0 PRODUCTION RELEASE
 * **SECURITY POSTURE:** 100% Client-Side / Offline (`connect-src 'none'`), Safe Rust `#![forbid(unsafe_code)]`, Hardened PDF.js & XSLT Sandbox.
 * **NEXT:** Tag v1.0.0 updated and pushed to trigger refreshed release build on GitHub Actions.
+
+## Session Close Handoff
+- Completed: Deep rebranding (@zerop7m, zerop7m-tauri, io.github.giuppi.zerop7m, zerop7m://, keystore alias), restructured git into 6 pristine linear conventional commits, force-pushed clean main and v1.0.0 tag to giuppi/zerop7m, purged legacy workflow runs.
+- Verified: `pnpm check:ci` (tsc + 16 Vitest tests + 20 cargo tests + android aarch64 + verify_audit.py: PASS), `cargo fmt --check` (PASS), `cargo clippy -- -D warnings` (PASS), `scan_secrets_pii.py` (0 findings).
+- Next: Monitor GitHub Actions run 45171331569 and verify release assets on GitHub Releases.
