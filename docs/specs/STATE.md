@@ -65,9 +65,9 @@
 ## Final Audit Verdict
 * **VERDICT:** APPROVED FOR v1.0.0 PRODUCTION RELEASE
 * **SECURITY POSTURE:** 100% Client-Side / Offline (`connect-src 'none'`), Safe Rust `#![forbid(unsafe_code)]`, Hardened PDF.js & XSLT Sandbox.
-* **NEXT:** Push CI fixes (Linux GTK dependencies), Pages relative base path (`./`), and automated `deploy-pages.yml` workflow.
+* **NEXT:** Track CI workflow run 45203923451 and confirm green status across all jobs.
 
 ## Session Close Handoff
-- Completed: Fixed Vite base path to `./` for GitHub Pages subpath deployment, updated pdf-config to dynamic baseUrl, installed Linux GTK/WebKit system dependencies in ci.yml to resolve gobject-sys/gio-sys build errors, created deploy-pages.yml for auto-deployment on push to main, added tag_name fallback in release.yml.
-- Verified: `pnpm --filter web build` (PASS, assets using relative `./assets/`), `python scripts/verify_audit.py` (PASS, 0 leaks, all invariants clean), `pnpm --filter web test` (16 passed).
-- Next: Commit and push fixes to main; trigger CI and verify GitHub Pages and Release pipeline.
+- Completed: Fixed Vite base path to `./` for GitHub Pages subpath deployment, updated pdf-config to dynamic baseUrl, installed Linux GTK/WebKit system dependencies in ci.yml to resolve gobject-sys/gio-sys build errors, created deploy-pages.yml with separate build and deploy jobs, tracked fixtures/generated/ test corpus so cargo test runs out-of-the-box on CI.
+- Verified: `pnpm --filter web build` (PASS, assets using relative `./assets/`), `python scripts/verify_audit.py` (PASS, 0 leaks, all invariants clean), `pnpm --filter web test` (16 passed), `python scripts/scan_secrets_pii.py` (0 findings).
+- Next: Push fixtures and workflow fixes to main; verify green CI and live GitHub Pages.
