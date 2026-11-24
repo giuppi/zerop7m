@@ -1,0 +1,5 @@
+Versione 1.0.2:
+- Navigazione PDF con rotellina del mouse in modalità pagina singola
+- Supporto gesture touch (swipe orizzontale) per voltare pagina su schermi touch e mobile
+- Nuova finestra informativa con attribuzione autore (Giuppi), crediti e motore OpenCAdES
+- Collegamenti diretti al repository open source e al sito web ufficiale

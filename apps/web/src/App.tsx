@@ -9,6 +9,7 @@ import { EmptyDropZone } from "./components/EmptyDropZone";
 import { ErrorBanner } from "./components/ErrorBanner";
 import { DocumentStage } from "./components/DocumentStage";
 import { SignatureDrawer } from "./components/SignatureDrawer";
+import { AboutModal } from "./components/AboutModal";
 import { Info, X } from "lucide-react";
 
 export const App: React.FC = () => {
@@ -18,6 +19,7 @@ export const App: React.FC = () => {
   const { state, openFile, openPath, closeDocument } = useDocumentSession(adapter);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -65,17 +67,21 @@ export const App: React.FC = () => {
     return () => window.removeEventListener("p7m:toast", handleToast);
   }, []);
 
-  // Keyboard navigation: Escape closes drawer
+  // Keyboard navigation: Escape closes modal or drawer
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isDrawerOpen) {
-        setIsDrawerOpen(false);
+      if (e.key === "Escape") {
+        if (isAboutOpen) {
+          setIsAboutOpen(false);
+        } else if (isDrawerOpen) {
+          setIsDrawerOpen(false);
+        }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isDrawerOpen]);
+  }, [isAboutOpen, isDrawerOpen]);
 
   // Global drag-and-drop
   const handleDragEnter = (e: React.DragEvent) => {
@@ -135,10 +141,17 @@ export const App: React.FC = () => {
 
   if (state.status === "idle") {
     return (
-      <EmptyDropZone
-        onFileSelected={openFile}
-        isDragging={isDragging}
-      />
+      <>
+        <EmptyDropZone
+          onFileSelected={openFile}
+          isDragging={isDragging}
+          onOpenAbout={() => setIsAboutOpen(true)}
+        />
+        <AboutModal
+          isOpen={isAboutOpen}
+          onClose={() => setIsAboutOpen(false)}
+        />
+      </>
     );
   }
 
@@ -167,6 +180,7 @@ export const App: React.FC = () => {
         onDownload={handleDownload}
         isDrawerOpen={isDrawerOpen}
         onToggleDrawer={() => setIsDrawerOpen(!isDrawerOpen)}
+        onOpenAbout={() => setIsAboutOpen(true)}
       />
 
       {/* Main Document Stage (Occupies >= 80% screen area) */}
@@ -178,8 +192,15 @@ export const App: React.FC = () => {
           isOpen={isDrawerOpen}
           onClose={() => setIsDrawerOpen(false)}
           report={state.doc.report}
+          onOpenAbout={() => setIsAboutOpen(true)}
         />
       </main>
+
+      {/* About & Credits Modal */}
+      <AboutModal
+        isOpen={isAboutOpen}
+        onClose={() => setIsAboutOpen(false)}
+      />
 
       {/* Toast Notification (Italian legal copy) */}
       {toastMessage && (

@@ -1,0 +1,5 @@
+Version 1.0.2:
+- Mouse wheel overscroll page navigation in single-page PDF view mode
+- Touch horizontal swipe gesture for flipping pages on touchscreens and mobile
+- Dedicated About dialog with author attribution (Giuppi), OpenCAdES engine, and official links
+- Direct links to GitHub open source repository and official website

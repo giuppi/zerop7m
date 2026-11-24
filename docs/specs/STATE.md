@@ -1,9 +1,9 @@
 # STATE — ZeroP7M / OpenCAdES Session Continuity Log
 
 ## Current Status
-* **Phase:** Production Release Maintenance -> **v1.0.1 Mobile Usability Release**
-* **Active Milestone:** Post-v1.0.0 Mobile & Ergonomics Hardening (COMPLETED)
-* **Active Task:** Touch-friendly toolbar & drawer controls (min 40-44px tap targets), responsive mobile signature status button, and version bump to `1.0.1` (versionCode 2).
+* **Phase:** Production Release Maintenance -> **v1.0.2 UX, Wheel Navigation & Credits Release**
+* **Active Milestone:** Post-v1.0.0 UX & Attribution Polish (COMPLETED)
+* **Active Task:** Single-page PDF mouse-wheel & touch-swipe navigation, AboutModal with authorship (Giuppi), OpenCAdES engine, GitHub repository, and version bump to `1.0.2` (versionCode 3).
 * **Blockers:** None.
 
 ## Rebranding Execution (ZeroP7M & OpenCAdES)
@@ -63,11 +63,11 @@
 * **Android In-Memory PDF Loading:** Native IPC command `get_session_bytes` eliminating `fetch()` failures under `connect-src 'none'`.
 
 ## Final Audit Verdict
-* **VERDICT:** APPROVED FOR v1.0.1 PRODUCTION RELEASE
+* **VERDICT:** APPROVED FOR v1.0.2 PRODUCTION RELEASE
 * **SECURITY POSTURE:** 100% Client-Side / Offline (`connect-src 'none'`), Safe Rust `#![forbid(unsafe_code)]`, Hardened PDF.js & XSLT Sandbox.
-* **NEXT:** Push commit and release tag `v1.0.1` to GitHub to trigger automated release build.
+* **NEXT:** Push commit and release tag `v1.0.2` to GitHub to trigger automated release build.
 
 ## Session Close Handoff
-- Completed: Mobile touch ergonomics across HeaderBar, PdfViewer, FatturaPaViewer, ImageViewer, and SignatureDrawer (min 40-44px tap targets, active touch feedback, high-contrast mobile signature status button), version bumped to 1.0.1 across Cargo.toml, tauri.conf.json, and package.json files, added fastlane changelogs for build 2 in it-IT and en-US.
+- Completed: Single-page PDF mouse-wheel overscroll navigation and touch-swipe page turning in PdfViewer, created AboutModal with author attribution (Giuppi), OpenCAdES engine, GitHub links, official WebApp link, license, and offline privacy guarantees, wired across EmptyDropZone, HeaderBar, and SignatureDrawer, bumped project version to 1.0.2 (versionCode 3) and added fastlane changelogs for build 3.
 - Verified: `cargo test --workspace` (20 passed), `cargo fmt --all -- --check` (PASS), `cargo clippy --workspace --all-targets -- -D warnings` (PASS 0 warnings), `pnpm --filter web typecheck` (0 errors), `pnpm --filter web test` (16 passed), `pnpm --filter web build` (PASS), `python scripts/verify_audit.py` (ALL SECURITY INVARIANTS CLEAN).
-- Next: Commit and push tag `v1.0.1` and `main` branch to trigger GitHub Actions Release Pipeline.
+- Next: Push tag `v1.0.2` and `main` branch to trigger GitHub Actions Release Pipeline.

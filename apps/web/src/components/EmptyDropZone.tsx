@@ -1,14 +1,16 @@
 import React, { useRef } from "react";
-import { UploadCloud, FileText, Lock, FileCheck, ShieldAlert } from "lucide-react";
+import { UploadCloud, FileText, Lock, FileCheck, ShieldAlert, Info, Code2, ExternalLink } from "lucide-react";
 
 interface EmptyDropZoneProps {
   onFileSelected: (file: File) => void;
   isDragging: boolean;
+  onOpenAbout: () => void;
 }
 
 export const EmptyDropZone: React.FC<EmptyDropZoneProps> = ({
   onFileSelected,
   isDragging,
+  onOpenAbout,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -54,9 +56,19 @@ export const EmptyDropZone: React.FC<EmptyDropZoneProps> = ({
             ZeroP7M
           </span>
         </div>
-        <span className="text-xs text-[#525C6E] dark:text-[#9CA3AF]">
-          OpenCAdES • 100% Locale • Zero-Cloud
-        </span>
+        <div className="flex items-center space-x-3 text-xs text-[#525C6E] dark:text-[#9CA3AF]">
+          <span className="hidden sm:inline">OpenCAdES • 100% Locale • Zero-Cloud</span>
+          <button
+            type="button"
+            onClick={onOpenAbout}
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-[#171A21] border border-[#E2E5EB] dark:border-[#262B36] hover:bg-gray-100 dark:hover:bg-gray-800 text-[#111827] dark:text-[#F3F4F6] font-medium transition-colors shadow-2xs cursor-pointer"
+            title="Crediti, paternità e informazioni su ZeroP7M"
+            aria-label="Crediti e Informazioni"
+          >
+            <Info className="w-3.5 h-3.5 text-[#1E40AF] dark:text-blue-400" />
+            <span>Crediti & Info</span>
+          </button>
+        </div>
       </header>
 
       {/* Main tactile drop container */}
@@ -110,13 +122,46 @@ export const EmptyDropZone: React.FC<EmptyDropZoneProps> = ({
         </div>
       </main>
 
-      {/* Privacy Guarantee Pill (Footer) */}
-      <footer className="w-full max-w-xl pb-4">
+      {/* Privacy Guarantee Pill & Authorship / Credits (Footer) */}
+      <footer className="w-full max-w-xl pb-4 flex flex-col items-center gap-2.5">
         <div className="flex items-center justify-center space-x-2 text-xs text-[#525C6E] dark:text-[#9CA3AF] bg-white dark:bg-[#171A21] border border-[#E2E5EB] dark:border-[#262B36] py-2 px-4 rounded-full shadow-xs">
           <Lock className="w-3.5 h-3.5 text-green-600 shrink-0" />
           <span>
             100% locale e offline — i tuoi file non lasciano mai questo dispositivo.
           </span>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[#525C6E] dark:text-[#9CA3AF]">
+          <span>
+            Creato da{" "}
+            <a
+              href="https://github.com/giuppi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#111827] dark:text-[#F3F4F6] hover:text-[#1E40AF] dark:hover:text-blue-400 hover:underline"
+            >
+              Giuppi
+            </a>
+          </span>
+          <span>•</span>
+          <button
+            type="button"
+            onClick={onOpenAbout}
+            className="hover:text-[#1E40AF] dark:hover:text-blue-400 font-medium underline underline-offset-2 transition-colors cursor-pointer"
+          >
+            Crediti & Licenza
+          </button>
+          <span>•</span>
+          <a
+            href="https://github.com/giuppi/zerop7m"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#1E40AF] dark:hover:text-blue-400 font-medium inline-flex items-center gap-1 transition-colors"
+          >
+            <Code2 className="w-3.5 h-3.5" />
+            <span>Sorgenti GitHub</span>
+            <ExternalLink className="w-3 h-3 opacity-70" />
+          </a>
         </div>
       </footer>
     </div>

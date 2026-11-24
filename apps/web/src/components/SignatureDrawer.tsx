@@ -22,12 +22,14 @@ interface SignatureDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   report: P7MInspectionReport;
+  onOpenAbout?: () => void;
 }
 
 export const SignatureDrawer: React.FC<SignatureDrawerProps> = ({
   isOpen,
   onClose,
   report,
+  onOpenAbout,
 }) => {
   const [copiedCf, setCopiedCf] = useState<string | null>(null);
 
@@ -138,8 +140,17 @@ export const SignatureDrawer: React.FC<SignatureDrawerProps> = ({
             </span>
           </div>
 
-          <div className="text-center py-1 text-[11px] text-[#9CA3AF] dark:text-gray-500 font-medium">
-            ZeroP7M • Motore OpenCAdES • 100% Offline
+          <div className="text-center py-1 text-[11px] text-[#9CA3AF] dark:text-gray-500 font-medium flex flex-col items-center gap-0.5">
+            <span>ZeroP7M • Ideato da Giuppi • Motore OpenCAdES</span>
+            {onOpenAbout && (
+              <button
+                type="button"
+                onClick={onOpenAbout}
+                className="text-[11px] text-[#1E40AF] dark:text-blue-400 hover:underline cursor-pointer"
+              >
+                Crediti, Autore & Licenza
+              </button>
+            )}
           </div>
 
           {/* Signature Layers */}

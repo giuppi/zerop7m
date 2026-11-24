@@ -260,12 +260,20 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ url, readBytes }) => {
 
   // Page navigation
   const handlePageChange = useCallback(
-    (targetPage: number) => {
+    (targetPage: number, alignTo: "top" | "bottom" = "top") => {
       const pageNum = Math.max(1, Math.min(numPages, targetPage));
+      if (pageNum === currentPage) return;
       setCurrentPage(pageNum);
 
       if (viewMode === "single") {
-        containerRef.current?.scrollTo({ top: 0, left: 0 });
+        requestAnimationFrame(() => {
+          if (containerRef.current) {
+            containerRef.current.scrollTo({
+              top: alignTo === "bottom" ? containerRef.current.scrollHeight : 0,
+              left: 0,
+            });
+          }
+        });
       } else {
         const targetRef = pageRefs.current[pageNum - 1];
         if (targetRef && containerRef.current) {
@@ -273,7 +281,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ url, readBytes }) => {
         }
       }
     },
-    [numPages, viewMode]
+    [numPages, currentPage, viewMode]
   );
 
   // Switch between Single page and Continuous view modes
@@ -314,6 +322,112 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ url, readBytes }) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [numPages, currentPage, handlePageChange]);
+
+  // Mouse wheel navigation in single-page mode (smoothly turn page on edge overscroll or fit-to-page)
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || viewMode !== "single" || numPages <= 1) return;
+
+    let accumulatedDelta = 0;
+    let lastWheelTime = 0;
+    let resetTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const onWheel = (e: WheelEvent) => {
+      // Ignore horizontal-dominant trackpad pans
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaY) < 10) return;
+
+      const isScrollableY = container.scrollHeight > container.clientHeight + 6;
+      const isAtBottom =
+        !isScrollableY ||
+        Math.ceil(container.scrollTop + container.clientHeight) >= container.scrollHeight - 6;
+      const isAtTop = !isScrollableY || container.scrollTop <= 6;
+      const now = Date.now();
+
+      if (resetTimer) clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        accumulatedDelta = 0;
+      }, 250);
+
+      // Wheel Down -> Next Page
+      if (e.deltaY > 0 && isAtBottom) {
+        if (now - lastWheelTime < 380) return;
+        accumulatedDelta += e.deltaY;
+        if (accumulatedDelta >= 35) {
+          accumulatedDelta = 0;
+          lastWheelTime = now;
+          if (currentPage < numPages) {
+            handlePageChange(currentPage + 1, "top");
+          }
+        }
+      }
+      // Wheel Up -> Previous Page
+      else if (e.deltaY < 0 && isAtTop) {
+        if (now - lastWheelTime < 380) return;
+        accumulatedDelta += e.deltaY;
+        if (accumulatedDelta <= -35) {
+          accumulatedDelta = 0;
+          lastWheelTime = now;
+          if (currentPage > 1) {
+            handlePageChange(currentPage - 1, isScrollableY ? "bottom" : "top");
+          }
+        }
+      } else {
+        accumulatedDelta = 0;
+      }
+    };
+
+    container.addEventListener("wheel", onWheel, { passive: true });
+    return () => {
+      container.removeEventListener("wheel", onWheel);
+      if (resetTimer) clearTimeout(resetTimer);
+    };
+  }, [viewMode, numPages, currentPage, handlePageChange]);
+
+  // Touch swipe gesture navigation for mobile / touchscreens in single-page mode
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || viewMode !== "single" || numPages <= 1) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.changedTouches.length !== 1) return;
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const elapsed = Date.now() - touchStartTime;
+
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      // Detect deliberate horizontal swipe: under 500ms, > 50px delta, mostly horizontal
+      if (elapsed < 500 && Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+        if (deltaX < 0 && currentPage < numPages) {
+          // Swipe Left -> Next Page
+          handlePageChange(currentPage + 1, "top");
+        } else if (deltaX > 0 && currentPage > 1) {
+          // Swipe Right -> Previous Page
+          handlePageChange(currentPage - 1, "top");
+        }
+      }
+    };
+
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    container.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [viewMode, numPages, currentPage, handlePageChange]);
 
   if (loading) {
     return (
@@ -439,7 +553,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ url, readBytes }) => {
         /* Single Page (One per Viewport) */
         <div
           ref={containerRef}
-          className="flex-1 overflow-auto p-4 flex items-center justify-center min-h-0"
+          className="flex-1 overflow-auto p-4 flex items-center justify-center min-h-0 overscroll-contain"
         >
           <div className="relative inline-block m-auto">
             {numPages > 1 && (

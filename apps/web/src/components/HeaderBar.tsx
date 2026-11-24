@@ -7,6 +7,7 @@ import {
   Shield,
   Layers,
   RotateCcw,
+  Info,
 } from "lucide-react";
 import type { OpenedDocument } from "@zerop7m/shared-types";
 
@@ -16,6 +17,7 @@ interface HeaderBarProps {
   onDownload: () => void;
   isDrawerOpen: boolean;
   onToggleDrawer: () => void;
+  onOpenAbout: () => void;
 }
 
 export const HeaderBar: React.FC<HeaderBarProps> = ({
@@ -24,6 +26,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
   onDownload,
   isDrawerOpen,
   onToggleDrawer,
+  onOpenAbout,
 }) => {
   const { report } = doc;
   const outerLayer = report.layers[0];
@@ -113,6 +116,16 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
           aria-label="Apri un altro file"
         >
           <RotateCcw className="w-4.5 h-4.5 sm:w-4 sm:h-4" />
+        </button>
+
+        {/* Info & Credits */}
+        <button
+          onClick={onOpenAbout}
+          className="h-10 w-10 sm:h-9 sm:w-9 rounded-lg inline-flex items-center justify-center text-[#525C6E] dark:text-[#9CA3AF] hover:text-[#111827] dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 transition-colors"
+          title="Crediti, paternità e informazioni su ZeroP7M"
+          aria-label="Crediti e Informazioni"
+        >
+          <Info className="w-4.5 h-4.5 sm:w-4 sm:h-4" />
         </button>
       </div>
     </header>

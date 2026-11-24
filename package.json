@@ -1,6 +1,6 @@
 {
   "name": "zerop7m",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "ZeroP7M — Open-Source, Zero-Cost, 100% Client-Side/Offline .p7m Reader powered by OpenCAdES",
   "scripts": {
